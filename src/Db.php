@@ -115,6 +115,14 @@ class Db {
         if(is_int($var)) return 'i';
         return 'b';
     }
+
+    /**
+     * Get the value of connection
+     */ 
+    public function getConnection()
+    {
+        return $this->connection;
+    }
     
 }
 
