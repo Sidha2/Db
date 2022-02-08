@@ -22,6 +22,36 @@ $db = new Db($dbhost ,$dbuser, $dbpass, $dbname, $port);
 print_r($db);
 ```
 
+
+## Use DbCfg
+```php
+<?php
+
+// Autoload files using the Composer autoloader.
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use DB\Db;
+use DB\DbCfg;
+
+$dbhost = '127.0.0.1';
+$dbuser = 'root';
+$dbpass = '';
+$dbname = 'db_name';
+$port   = 3306;
+// $db = new Db($dbhost ,$dbuser, $dbpass, $dbname, $port);
+
+class Test extends DbCfg {
+
+    public static function do() {
+        $db = new DbCfg;
+        print_r($db->db());
+    }
+}
+
+Test::do();
+```
+
+
 ## Example
 ```php
 
