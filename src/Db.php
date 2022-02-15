@@ -108,6 +108,16 @@ class Db {
     public function errorList() {
         return $this->query->error_list;
     }
+
+    public function isUpdatedRowExist() {
+        $info = $this->query->info;
+        $matched = explode('  ', $info);
+        $matched = explode(':', $matched[0]);
+
+        if ($matched[1] > 0) return true;
+        return false;
+    }
+    
     
     private function _gettype($var) {
         if(is_string($var)) return 's';
