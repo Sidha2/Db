@@ -110,7 +110,8 @@ class Db {
     }
 
     public function isUpdatedRowExist() {
-        $info = $this->query->info;
+        if (!isset($this->connection->info)) return false;
+        $info = $this->connection->info;
         $matched = explode('  ', $info);
         $matched = explode(':', $matched[0]);
 
