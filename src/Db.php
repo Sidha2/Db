@@ -6,16 +6,20 @@ class Db {
     
     protected $connection;
     protected $query;
+    private $failedToConnect = false;
     
     public $query_count = 0;
     
     public function __construct($dbhost = 'localhost', $dbuser = 'root', $dbpass = '', $dbname = '', $port='' , $charset = 'utf8') {
-        $this->connection = new \mysqli($dbhost, $dbuser, $dbpass, $dbname, $port);
+        $this->connection = @new \mysqli($dbhost, $dbuser, $dbpass, $dbname, $port);
+
         if ($this->connection->connect_error) {
             //die('Failed to connect to MySQL - ' . $this->connection->connect_error);
-
+            $this->failedToConnect = true;
+        } else {
+            $this->connection->set_charset($charset);
         }
-        $this->connection->set_charset($charset);
+        
     }
     
 	
@@ -117,6 +121,11 @@ class Db {
 
         if ($matched[1] > 0) return true;
         return false;
+    }
+
+
+    public function getFailedToConnect() {
+        return $this->failedToConnect;
     }
     
     

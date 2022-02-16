@@ -43,8 +43,20 @@ $port   = 3306;
 class Test extends DbCfg {
 
     public static function do() {
-        $db = new DbCfg;
-        print_r($db->db());
+        
+        # initialize
+        $db = (new DbCfg)->db();
+        
+        # check DB is connected
+        if ($db->getFailedToConnect()) die('Connect to DB failed: '.$db->getConnection()->connect_error);
+        
+        # test select
+        $q = $db->query("UPDATE aaa SET open=? WHERE id = ?", 3,1);
+        print_r($q);
+
+        # check if updated row is exist
+        if ($q->isUpdatedRowExist()) echo "Exist!";
+        else echo "not exist!";
     }
 }
 
